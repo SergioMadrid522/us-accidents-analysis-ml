@@ -1,0 +1,4 @@
+# Files from data-engine folder
+data-engine/datasets/raw/US_Accidents_March23.csv
+data-engine/datasets/processed/accidents_clean.csv
+data-engine/venv/
