@@ -32,12 +32,22 @@ The project follows a structured Data Science workflow:
 4.  **Model Training:** Training a `RandomForestClassifier` to predict accident severity (Scale 1-4).
 
 ## Key Insights & Results
+### Weather Impact Analysis
+Analysis reveals that the majority of accidents occur during **Clear** conditions, likely due to higher traffic volume. However, significant clusters appear during **Rain** and **Cloudy** conditions, which are critical features for the risk model.
 
-_(Insert screenshots of your charts from notebook 1_exploration here. E.g., "Heatmap of accidents" or "Accidents by Hour")_
+<img width="950" height="776" alt="imagen2" src="https://github.com/user-attachments/assets/b40599e7-e713-451e-93ee-2e47b1ff2314" />
 
-- **Insight 1:** The majority of accidents occur between [X] PM and [X] PM.
-- **Insight 2:** Contrary to intuition, [Weather Condition A] shows a higher frequency of severe accidents than [Weather Condition B].
-- **Model Accuracy:** The current model achieved an accuracy of **[INSERT YOUR % HERE]%** on the test set.
+### Geographic Hotspots
+Using Pandas grouping aggregation, I identified high-risk urban areas. **Los Angeles** presents an outlier behavior with the highest accident density, followed by Sacramento and San Diego.
+
+<img width="949" height="673" alt="imagen1" src="https://github.com/user-attachments/assets/3caee038-df07-4199-99c6-c701058ad2e5" />
+
+### Model Performance Evaluation
+The Random Forest model achieved a solid **74.14% Accuracy** on the test set. 
+
+The classification report below details the Precision and Recall metrics, showing strong predictive capability for the most common accident severities (Class 2 and 3), which constitute the majority of the dataset.
+
+<img width="421" height="376" alt="imagen3" src="https://github.com/user-attachments/assets/d47967da-7038-44dd-bf19-0d56edf4c2f2" />
 
 ## Project Structure
 
@@ -59,8 +69,12 @@ _(Insert screenshots of your charts from notebook 1_exploration here. E.g., "Hea
 1. Clone the repository
 
 ```bash
-git clone [https://github.com/SergioMadrid522/us-accidents-ml-analysis.git](https://github.com/SergioMadrid522/us-accidents-ml-analysis.git)
+git clone https://github.com/SergioMadrid522/us-accidents-ml-analysis.git
+```
 
+and go into the folder: 
+
+```bash
 cd us-accidents-ml-analysis
 ```
 
@@ -78,10 +92,6 @@ pip install -r requirements.txt
 
 4. Run the Notebooks
 
-```bash
-jupyter notebook
-```
-
 Open and execute the files in numerical order (1 -> 2 -> 3).
 
 ## Roadmap
@@ -92,5 +102,5 @@ Open and execute the files in numerical order (1 -> 2 -> 3).
 
 [ ] Phase 3: Interactive Dashboard development with React & Mapbox.
 
-Developed by SergioMadrid522 - Software Engineer specializing in Big Data.
+Developed by SergioMadrid522 - Software Engineer specializing in Full Stack & Big Data.
 [LinkedIn](https://www.linkedin.com/in/sergio-acu%C3%B1a-59735336b) [Portfolio](https://fabianmadrid.dev)
