@@ -1,7 +1,7 @@
 # US Traffic Risk Predictor: AI-Powered Analysis Engine
 
-> **Project Status:** Phase 1 Completed (Data Engineering & ML Modeling).
-> **Next Steps:** Backend API (FastAPI) and Frontend Dashboard (React) development.
+> **Project Status:** Phase 2 Data & AI Microservice with FastAPI <br/>
+> **Next Steps:** Phase 3: BFF (Backend for Frontend) Orchestrator with Node.js + TypeScript
 
 ## Project Overview
 
@@ -11,10 +11,10 @@ The goal is to transform raw big data into a predictive model capable of estimat
 
 ## Tech Stack
 
-- **Language:** Python 3.10+
+- **Language:** Python 3.10+, TypeScript
 - **Data Processing:** Pandas, NumPy (Big Data handling).
 - **Machine Learning:** Scikit-Learn (Random Forest Classifier).
-- **Tools:** Jupyter Notebooks.
+- **Tools:** Jupyter Notebooks, Node.js & React.js.
 - **Serialization:** Joblib (for `.pkl` model export).
 
 ## Pipeline Architecture (Phase 1)
@@ -49,58 +49,58 @@ The classification report below details the Precision and Recall metrics, showin
 
 <img width="421" height="376" alt="imagen3" src="https://github.com/user-attachments/assets/d47967da-7038-44dd-bf19-0d56edf4c2f2" />
 
+## Data & AI Microservice with FastAPI (Phase 2)
+
+Coming Soon...
+
 ## Project Structure
 
 ```text
 ├── data-engine/
-│   ├── datasets/           # (Ignored by git due to size)
+│   ├── data/                         # JSON file with all data
+│   ├── datasets/                     # (Ignored by git due to size)
+│   ├── models/                       # Pickle files
+│   │    ├── model_accidents.pkl      # Trained Model (Brain)
+│   │    ├── model_columns.pkl        # Data Structure (Skeleton)
+│   │    ├── model_predictions.pkl    # Predition Model (Skeleton)
 │   ├── notebooks/
-│   │   ├── 1_exploration.ipynb  # Visual Analysis (EDA)
-│   │   ├── 2_cleaning.ipynb     # ETL & Cleaning
-│   │   └── 3_training.ipynb     # Model Training
-│   └── app/
-│       ├── model_accidents.pkl  # Trained Model (Brain)
-│       ├── model_columns.pkl    # Data Structure (Skeleton)
-└── requirements.txt        # Project dependencies
+│   │   ├── 1_exploration.ipynb       # Visual Analysis (EDA)
+│   │   ├── 2_cleaning.ipynb          # ETL & Cleaning
+│   │   └── 3_training.ipynb          # Model Training
+│   ├── src/
+│   │   └── app/
+│   │       ├── main.py               # Main File
+│   │       ├── tree_count.py         # Count all tree trained 
+│   │       ├── utils.py              # Reusable functions
+│   ├── requirements.txt              # Project dependencies
+└──–––– .gitignore                
 ```
 
-## Installation and Usage
+## Datasets
 
-1. Clone the repository
-
-```bash
-git clone https://github.com/SergioMadrid522/us-accidents-ml-analysis.git
-```
-
-and go into the folder: 
-
-```bash
-cd us-accidents-ml-analysis
-```
-
-2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Get the Data: Due to the dataset size (>1GB), it is not included in the repository.
+Due to the dataset size (3.06 GB), it is not included in the repository.
 
    [Download US_Accidents_Dec21.csv](https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents)
 
    Place it inside data-engine/datasets/raw/.
 
-4. Run the Notebooks
-
-Open and execute the files in numerical order (1 -> 2 -> 3).
-
 ## Roadmap
 
-[x] Phase 1: ETL, EDA, and ML Model Training.
+[x] Phase 1: ETL, EDA, and ML Model Training
 
-[ ] Phase 2: REST API development with FastAPI to expose the model.
+Cleaning and preprocessing the 7 million historical records, conducting Exploratory Data Analysis, performing feature engineering (including One-Hot Encoding for weather conditions), training the Scikit-Learn Random Forest model to achieve a 74.14% accuracy, and exporting the trained model and feature structure into .pkl (Pickle) files.
 
-[ ] Phase 3: Interactive Dashboard development with React & Mapbox.
+[x] Phase 2: Data & AI Microservice with FastAPI
 
-Developed by SergioMadrid522 - Software Engineer specializing in Full Stack & Big Data.
+Building a high-performance Python server that loads the serialized .pkl files into memory on startup. It will expose a GET /data endpoint to serve the optimized sample of 4,000 records (accidentes_muestra.json), a GET /columns endpoint to share the model's feature architecture, and a POST /predict endpoint to run live inference on new accident data using Scikit-Learn.
+
+[ ] Phase 3: BFF (Backend for Frontend) Orchestrator with Node.js + TypeScript
+
+Developing a lightweight, type-safe API Gateway layer using Node.js and TypeScript (via Express). This service acts as the strict "gatekeeper"—validating incoming payloads from the UI using schemas (e.g., Zod), handling data shaping, grouping, or pagination to protect client-side performance, and acts as a reverse proxy to forward clean requests to the FastAPI microservice, entirely eliminating browser CORS conflicts.
+
+[ ] Phase 4: Interactive Dashboard & Simulator with React & Mapbox
+
+Designing a premium Modern Dark Mode user interface that consumes the structured data from the Node.js BFF. This frontend will feature an analytical dashboard with interactive charts and geospatial heatmaps powered by Mapbox to visualize historical accidents, alongside a dedicated "Risk Simulator" form allowing users to input live variables and dynamically display prediction risk alerts returned by the machine learning pipeline.
+
+Developed by SergioMadrid522 - Software Developer specializing in Full Stack, Big Data and QA manual & automation.
 [LinkedIn](https://www.linkedin.com/in/sergio-acu%C3%B1a-59735336b) [Portfolio](https://fabianmadrid.dev)
