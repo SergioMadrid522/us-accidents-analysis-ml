@@ -1,4 +1,4 @@
-# US Traffic Risk Predictor: AI-Powered Analysis Engine
+# US Accident Analysis: AI-Powered Analysis Engine
 
 > **Project Status:** Phase 2 Data & AI Microservice with FastAPI <br/>
 > **Next Steps:** Phase 3: BFF (Backend for Frontend) Orchestrator with Node.js + TypeScript
