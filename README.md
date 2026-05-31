@@ -94,9 +94,9 @@ Cleaning and preprocessing the 7 million historical records, conducting Explorat
 
 Building a high-performance Python server that loads the serialized .pkl files into memory on startup. It will expose a GET /data endpoint to serve the optimized sample of 4,000 records (accidentes_muestra.json), a GET /columns endpoint to share the model's feature architecture, and a POST /predict endpoint to run live inference on new accident data using Scikit-Learn.
 
-[ ] Phase 3: BFF (Backend for Frontend) Orchestrator with Node.js + TypeScript
+[ ] Phase 3: BFF (Backend for Frontend) Orchestrator with Spring Boot
 
-Developing a lightweight, type-safe API Gateway layer using Node.js and TypeScript (via Express). This service acts as the strict "gatekeeper"—validating incoming payloads from the UI using schemas (e.g., Zod), handling data shaping, grouping, or pagination to protect client-side performance, and acts as a reverse proxy to forward clean requests to the FastAPI microservice, entirely eliminating browser CORS conflicts.
+Developing a strongly-typed API Gateway layer using Java and Spring Boot. This service serves as the core orchestrator: validating incoming UI requests with strict Jakarta schemas, handling data grouping and pagination to protect frontend rendering, and acting as a secure reverse proxy that forwards clean payloads to the Python microservice, eliminating browser CORS conflicts.
 
 [ ] Phase 4: Interactive Dashboard & Simulator with React & Mapbox
 
