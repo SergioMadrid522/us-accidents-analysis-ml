@@ -1,2 +1,8 @@
+# Virtual environment file
 venv
+
+# Data set files
 *.csv
+
+# Model files
+*.pkl
