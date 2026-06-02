@@ -1,6 +1,6 @@
 import joblib
 
-model = joblib.load("model_prediction.pkl")
+model = joblib.load("../../models/model_prediction.pkl")
 
 print(f"Count of trees trained: {len(model.estimators_)}")
 
