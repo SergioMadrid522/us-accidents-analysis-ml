@@ -60,7 +60,7 @@ Coming Soon...
 
 Coming Soon...
 
-## Interactive Map & Risk Simulator with React & Leaflet (Phase 4)
+## Interactive Map & Risk Simulator with React + Ts & Leaflet (Phase 4)
 
 Coming Soon...
 
@@ -109,7 +109,7 @@ Building a high-performance Python server that loads the serialized .pkl files i
 
 Developing a strongly-typed API Gateway layer using Java and Spring Boot. This service serves as the core orchestrator: validating incoming UI requests with strict Jakarta schemas, handling data grouping and pagination to protect frontend rendering, and acting as a secure reverse proxy that forwards clean payloads to the Python microservice, eliminating browser CORS conflicts.
 
-[ ] Phase 4: Interactive Map & Risk Simulator with React & Leaflet
+[ ] Phase 4: Interactive Map & Risk Simulator with React + Ts & Leaflet
 
 Designing a premium Modern Dark Mode user interface that consumes the structured data from the Node.js BFF. This frontend will feature an analytical dashboard with interactive charts and geospatial heatmaps powered by Mapbox to visualize historical accidents, alongside a dedicated "Risk Simulator" form allowing users to input live variables and dynamically display prediction risk alerts returned by the machine learning pipeline.
 
