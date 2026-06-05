@@ -15,4 +15,3 @@ def read_file(file):
             return pickle.load(accidents_file)
         
     raise ValueError("File not supported")
-    

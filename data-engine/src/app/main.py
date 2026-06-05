@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException,APIRouter
 from pydantic import BaseModel, Field
 import joblib
 import os
@@ -6,6 +6,7 @@ from utils import read_file
 import pandas as pd
 
 app = FastAPI(title="Data & ML Traffic API")
+router = APIRouter(prefix="/data-engine/api/v1")
 
 model_prediction_path = "../../models/model_prediction.pkl"
 model_columns_path = "../../models/model_columns.pkl"
@@ -47,7 +48,7 @@ class PredictionInput(BaseModel):
         populate_by_name = True # This will convert all variables into a JSON
         
 
-@app.get("/data")
+@router.get("/data")
 def get_data():
     try:
         if not os.path.exists(data_path):
@@ -60,22 +61,8 @@ def get_data():
             status_code=500,
             detail=str(e)
         )
-
-@app.get("/columns")
-def get_columns():
-    try:
-        if not os.path.exists(model_columns_path):
-            raise HTTPException(status_code=404, detail="model_columns.pkl file not found")
-        
-        columns_data = read_file(model_columns_path)
-        return {"data": columns_data, "status": 200}
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
     
-@app.post("/predict")
+@router.post("/predict")
 def post_prediction(payload: PredictionInput):
     try:
         if not os.path.exists(model_prediction_path):
@@ -84,11 +71,11 @@ def post_prediction(payload: PredictionInput):
         input_df = pd.DataFrame(0, index=[0], columns=model_columns)
 
         direct_mappings = {
-            "Temperature(F)": payload.temperature,
-            "Humidity(%)": payload.humidity,
-            "Visibility(mi)": payload.visibility,
-            "Wind_Speed(mph)": payload.wind_speed,
-            "Precipitation(in)": payload.precipitation,
+            "Temperature": payload.temperature,
+            "Humidity": payload.humidity,
+            "Visibility": payload.visibility,
+            "Wind_Speed": payload.wind_speed,
+            "Precipitation": payload.precipitation,
             "Hour": payload.hour,
             "Month": payload.month,
             "Weekday": payload.weekday,
@@ -125,3 +112,6 @@ def post_prediction(payload: PredictionInput):
             status_code=500,
             detail=str(e)
         )
+    
+
+app.include_router(router)
