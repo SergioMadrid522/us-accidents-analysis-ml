@@ -1,7 +1,10 @@
 # US Accident Analysis: AI-Powered Analysis Engine
 
-> **Project Status:** Phase 3: BFF (Backend for Frontend) Orchestrator with Spring Boot <br/>
-> **Next Steps:** Phase 4: Interactive Dashboard & Simulator with React & leaflet
+> **Project Status:** Phase 4: Phase 4: Interactive Dashboard & Simulator with React & leaflet <br/><br/>
+> **Next Steps:** 
+> - Design and build the UI components (Simulator Form & Dashboard).
+> - Integrate Leaflet.js to render the historical accident data map.
+> - Connect the React frontend to the Spring Boot API Gateway to fetch data and process real-time predictions.
 
 ## Project Overview
 
@@ -53,6 +56,14 @@ The classification report below details the Precision and Recall metrics, showin
 
 Coming Soon...
 
+## BFF (Backend for Frontend) Orchestrator with Spring Boot (Phase 3)
+
+Coming Soon...
+
+## Interactive Map & Risk Simulator with React & Leaflet (Phase 4)
+
+Coming Soon...
+
 ## Project Structure
 
 ```text
@@ -94,11 +105,11 @@ Cleaning and preprocessing approximately 7.7 million historical records, conduct
 
 Building a high-performance Python server that loads the serialized .pkl files into memory on startup. It will expose a GET /data endpoint to serve the optimized sample of 4,000 records (accidentes_muestra.json), a GET /columns endpoint to share the model's feature architecture, and a POST /predict endpoint to run live inference on new accident data using Scikit-Learn.
 
-[ ] Phase 3: BFF (Backend for Frontend) Orchestrator with Spring Boot
+[x] Phase 3: BFF (Backend for Frontend) Orchestrator with Spring Boot
 
 Developing a strongly-typed API Gateway layer using Java and Spring Boot. This service serves as the core orchestrator: validating incoming UI requests with strict Jakarta schemas, handling data grouping and pagination to protect frontend rendering, and acting as a secure reverse proxy that forwards clean payloads to the Python microservice, eliminating browser CORS conflicts.
 
-[ ] Phase 4: Interactive Dashboard & Simulator with React & leaflet
+[ ] Phase 4: Interactive Map & Risk Simulator with React & Leaflet
 
 Designing a premium Modern Dark Mode user interface that consumes the structured data from the Node.js BFF. This frontend will feature an analytical dashboard with interactive charts and geospatial heatmaps powered by Mapbox to visualize historical accidents, alongside a dedicated "Risk Simulator" form allowing users to input live variables and dynamically display prediction risk alerts returned by the machine learning pipeline.
 
