@@ -6,21 +6,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class GetDataDTO {
+public class AccidentsDTO {
     @JsonAlias("Severity")
-    private int severity;
+    private Integer severity;
+    @JsonAlias("City")
+    private String city;
     @JsonAlias("State")
-    private String state;
+    private String stateCode;
     @JsonProperty("Temperature(F)")
-    private double temperature;
+    private Double temperature;
     @JsonProperty("Humidity(%)")
-    private double humidity;
+    private Double humidity;
     @JsonProperty("Visibility(mi)")
-    private double visibility;
+    private Double visibility;
     @JsonProperty("Wind_Speed(mph)")
-    private double windSpeed;
+    private Double windSpeed;
     @JsonProperty("Precipitation(in)")
-    private double precipitation;
+    private Double precipitation;
     @JsonAlias("Weather_Condition")
     private String weatherCondition;
     @JsonAlias("Junction")
@@ -28,12 +30,11 @@ public class GetDataDTO {
     @JsonAlias("Traffic_Signal")
     private boolean trafficSignal;
     @JsonAlias("Hour")
-    private double hour;
+    private Double hour;
     @JsonAlias("Month")
-    private int month;
+    private Integer month;
     @JsonAlias("Weekday")
-    private int weekday;
+    private Integer weekday;
     @JsonAlias("Is_Day")
     private boolean isDay;
-
 }

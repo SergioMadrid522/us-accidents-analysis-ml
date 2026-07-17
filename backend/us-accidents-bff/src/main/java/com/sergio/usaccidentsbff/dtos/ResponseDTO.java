@@ -1,18 +1,14 @@
 package com.sergio.usaccidentsbff.dtos;
 
-import java.util.List;
-
 public class ResponseDTO {
-
-    private List<GetDataDTO> data;
-
+    private SummaryDTO data;
+    
     public ResponseDTO(){}
 
-    public void setData(List<GetDataDTO> data){
+    public void setData(SummaryDTO data){
         this.data = data;
     }
-    
-    public List<GetDataDTO> getData() {
+    public SummaryDTO getData () {
         return data;
     }
 }
