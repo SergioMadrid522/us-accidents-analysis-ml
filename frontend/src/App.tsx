@@ -8,9 +8,20 @@ import usaStateData from "./us-states.json";
 import LayerControls from "./components/layer-controls/LayerControls";
 import StatePanel from "./components/stateDetailsPanel/StatePanel";
 import ModalPredictorMenu from "./components/modal-predictorMenu/ModalPredictorMenu";
+import { useSetMapData } from "./hooks/useSetMapData";
+import RenderMap from "./components/render-map/RenderMap";
 
 export default function App() {
-  const mapData = usaStateData as FeatureCollection;
+  const {
+    mapData,
+    stateName,
+    stateCode,
+    simpleStyle,
+    openPredictorMenu,
+    setOpenPredictorMenu,
+    onEachState,
+  } = useSetMapData();
+  /* const mapData = usaStateData as FeatureCollection;
   const [stateName, setSateName] = useState("");
   const [stateCode, setStateCode] = useState("");
   const [openPredictorMenu, setOpenPredictorMenu] = useState(false);
@@ -78,7 +89,7 @@ export default function App() {
       });
     });
 
-    layer.on("click", (event) => {
+    layer.on("click", () => {
       const map = layer._map;
       const stateName = layer.feature.properties.name;
       const stateCode = layer.feature.properties.stateCode;
@@ -92,27 +103,15 @@ export default function App() {
         maxZoom: 15,
       });
     });
-  };
+  }; */
+
   return (
     <main className="relative">
-      <MapContainer
-        center={[40, -105]}
-        zoom={5}
-        minZoom={5}
-        zoomAnimation={true}
-        zoomControl={false}
-        className="w-full h-dvh"
-      >
-        <LayerControls />
-
-        <GeoJSON
-          key={JSON.stringify(mapData)}
-          style={simpleStyle}
-          data={mapData}
-          onEachFeature={onEachState}
-        />
-        <ZoomControl position="bottomright" />
-      </MapContainer>
+      <RenderMap
+        mapData={mapData}
+        simpleStyle={simpleStyle}
+        onEachState={onEachState}
+      />
 
       {!openPredictorMenu && (
         <StatePanel stateName={stateName} stateCode={stateCode} />

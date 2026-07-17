@@ -6,7 +6,6 @@ import PredictorForm from "./PredictorForm";
 export default function ModalPredictorMenu({
   openMenu,
 }: ModalPredictorMenuProps) {
-  console.log(openMenu);
   return (
     <aside
       className={`
