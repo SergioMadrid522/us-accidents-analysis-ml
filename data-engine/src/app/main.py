@@ -4,6 +4,7 @@ import joblib
 import os
 from utils import read_file
 import pandas as pd
+from collections import Counter
 
 app = FastAPI(title="Data & ML Traffic API")
 router = APIRouter(prefix="/data-engine/api/v1")
@@ -48,26 +49,87 @@ class PredictionInput(BaseModel):
         populate_by_name = True # This will convert all variables into a JSON
         
 
-@router.get("/data")
-def get_data():
+@router.get("/data/{stateCode}")
+def get_data(stateCode: str):
+    if not os.path.exists(data_path):
+        raise HTTPException(
+            status_code = 404, 
+            detail = "accidents.json file not found"
+        )
+    
+    if not stateCode:
+        raise HTTPException(
+            status_code = 400,
+            detail = "There is not a state code"
+        )
     try:
-        if not os.path.exists(data_path):
-            raise HTTPException(status_code=404, detail="accidents.json file not found")
+        accidents_json = read_file(data_path)
+
+        normalized_state_code = stateCode.upper()
+
+        accidents = accidents_json["accidents"]
         
-        accidents_data = read_file(data_path)
-        return {"data": accidents_data, "status": 200}
+        filtered_data = [
+            data 
+            for data in accidents
+            if data["State"] == normalized_state_code
+        ]
+        
+        totals_by_state = accidents_json["totalAccidentsByState"]
+
+        average_severity = (
+            sum(data["Severity"] for data in filtered_data) / len(filtered_data)
+            if filtered_data
+            else 0.0
+        )
+        
+        weather_counter = Counter(
+            accident["Weather_Condition"]
+            for accident in filtered_data
+            if accident["Weather_Condition"] is not None
+        )
+
+        common_weather = (
+            weather_counter.most_common(1)[0][0]
+            if weather_counter
+            else "N/A"
+        )
+        
+        city_counter = Counter(
+            data["City"]
+            for data in filtered_data
+            if data["City"] is not None
+        )
+
+        high_risk_zones = [
+            city
+            for city, _ in city_counter.most_common(5)
+        ]
+
     except Exception as e:
         raise HTTPException(
             status_code=500,
             detail=str(e)
         )
+        
+    return {
+        "state_code": stateCode,
+        "data": {
+            "total_accidents": totals_by_state.get(normalized_state_code, 0),
+            "average_severity": round(average_severity, 2),
+            "most_common_weather": common_weather,
+            "high_risk_zones": high_risk_zones
+        }
+    }
     
 @router.post("/predict")
 def post_prediction(payload: PredictionInput):
-    try:
-        if not os.path.exists(model_prediction_path):
-            raise HTTPException(status_code=404, datail="The math model is not loaded to the server")
-        
+    if not os.path.exists(model_prediction_path):
+        raise HTTPException(
+            status_code=404,
+            datail="The math model is not loaded to the server"
+        )
+    try:    
         input_df = pd.DataFrame(0, index=[0], columns=model_columns)
 
         direct_mappings = {
@@ -101,17 +163,15 @@ def post_prediction(payload: PredictionInput):
                 round(prob * 100, 2) 
                 for i, prob in enumerate(probabilities)
             }
-
-        return {
-            "status": 200,
-            "prediction": int(prediction),
-            "risk_probabilities_percent": prob_dict
-        }
     except Exception as e:
         raise HTTPException(
             status_code=500,
             detail=str(e)
         )
+    return {
+        "status": 200,
+        "prediction": int(prediction),
+        "risk_probabilities_percent": prob_dict
+    }
     
-
 app.include_router(router)
