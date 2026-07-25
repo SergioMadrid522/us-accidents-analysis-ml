@@ -12,6 +12,7 @@ router = APIRouter(prefix="/data-engine/api/v1")
 model_prediction_path = "../../models/model_prediction.pkl"
 model_columns_path = "../../models/model_columns.pkl"
 data_path = "../../data/accidents.json"
+data_for_ui = "../../data/accidentsForUI.json"
 
 model = None
 model_columns = None
@@ -37,9 +38,9 @@ class PredictionInput(BaseModel):
     visibility: float = Field(..., alias="Visibility(mi)")
     wind_speed: float = Field(..., alias="Wind_Speed(mph)")
     precipitation: float = Field(..., alias="Precipitation(in)")
-    hour: int = Field(..., alias="Hour")
+    #hour: int = Field(..., alias="Hour")
     month: int = Field(..., alias="Month")
-    weekday: int = Field(..., alias="Weekday")
+    #weekday: int = Field(..., alias="Weekday")
     is_day: int = Field(..., alias="Is_Day")
     weather_condition: str = Field(..., alias="Weather_Condition")
     traffic_signal: int = Field(0, alias="Traffic_Signal")
@@ -48,7 +49,33 @@ class PredictionInput(BaseModel):
     class Config:
         populate_by_name = True # This will convert all variables into a JSON
         
+@router.get("/data")
+def data():
+    if not os.path.exists(data_for_ui):
+        raise HTTPException(
+            status_code = 404, 
+            detail = "accidents.json file not found"
+        )
+    try:
+        unique_weather = []
 
+        data = read_file(data_for_ui)
+        weather = [item["Weather_Condition"] for item in data]
+
+        for w in weather:
+            if w not in unique_weather:
+                unique_weather.append(w)
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+    return {
+        "data": unique_weather
+    }
+        
+    
 @router.get("/data/{stateCode}")
 def get_data(stateCode: str):
     if not os.path.exists(data_path):
@@ -64,11 +91,12 @@ def get_data(stateCode: str):
         )
     try:
         accidents_json = read_file(data_path)
+        accidents_for_ui_json = read_file(data_for_ui)
 
         normalized_state_code = stateCode.upper()
 
         accidents = accidents_json["accidents"]
-        
+
         filtered_data = [
             data 
             for data in accidents
@@ -119,7 +147,8 @@ def get_data(stateCode: str):
             "average_severity": round(average_severity, 2),
             "most_common_weather": common_weather,
             "high_risk_zones": high_risk_zones
-        }
+        },
+
     }
     
 @router.post("/predict")
@@ -138,9 +167,9 @@ def post_prediction(payload: PredictionInput):
             "Visibility": payload.visibility,
             "Wind_Speed": payload.wind_speed,
             "Precipitation": payload.precipitation,
-            "Hour": payload.hour,
+            #"Hour": payload.hour,
             "Month": payload.month,
-            "Weekday": payload.weekday,
+            #"Weekday": payload.weekday,
             "Is_Day": payload.is_day,
             "Traffic_Signal": payload.traffic_signal,
             "Junction": payload.junction
