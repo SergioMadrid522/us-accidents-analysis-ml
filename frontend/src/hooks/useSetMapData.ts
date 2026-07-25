@@ -1,7 +1,6 @@
 import type { FeatureCollection } from "geojson";
 import usaStateData from "../us-states.json";
 import { useState } from "react";
-import type { ModalPredictorMenuProps } from "../types";
 
 export function useSetMapData() {
   const mapData = usaStateData as FeatureCollection;
