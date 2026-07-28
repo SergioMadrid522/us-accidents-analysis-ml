@@ -192,11 +192,13 @@ def post_prediction(payload: PredictionInput):
                 round(prob * 100, 2) 
                 for i, prob in enumerate(probabilities)
             }
+        
     except Exception as e:
         raise HTTPException(
             status_code=500,
             detail=str(e)
         )
+
     return {
         "status": 200,
         "prediction": int(prediction),
