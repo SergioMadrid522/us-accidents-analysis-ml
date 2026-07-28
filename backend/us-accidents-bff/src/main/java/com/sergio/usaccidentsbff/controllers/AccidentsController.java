@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sergio.usaccidentsbff.dtos.PayloadDTO;
+import com.sergio.usaccidentsbff.dtos.PredictionResponseDTO;
 import com.sergio.usaccidentsbff.dtos.SummaryDTO;
+import com.sergio.usaccidentsbff.services.PredictionService;
 import com.sergio.usaccidentsbff.services.SummaryData;
-
-
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -21,14 +22,17 @@ public class AccidentsController {
     @Autowired
     private SummaryData data;
 
+    @Autowired
+    private PredictionService makePrediction;
+    
     @GetMapping("/state/{stateCode}")
     public SummaryDTO GetSateSummary(@PathVariable String stateCode) {
         return data.Response(stateCode);
     }
 
-    /* @PostMapping
-    public PredictionResponseDTO getPrediction(@RequestBody PredictDTO data) {
-        return predictAccidents.getPrediction(data);
-    } */
+    @PostMapping
+    public PredictionResponseDTO getPrediction(@RequestBody PayloadDTO data) {
+        return makePrediction.MakePrediction(data);
+    }
 }
 

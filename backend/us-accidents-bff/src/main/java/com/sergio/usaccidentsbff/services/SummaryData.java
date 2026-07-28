@@ -8,8 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import com.sergio.usaccidentsbff.dtos.ResponseDTO;
 import com.sergio.usaccidentsbff.dtos.SummaryDTO;
 
-
-
 @Service
 public class SummaryData {
     @Value("${DATA.ENGINE.DATA.API.URL}")
