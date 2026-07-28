@@ -5,6 +5,7 @@ import StatePanel from "./components/stateDetailsPanel/StatePanel";
 import ModalPredictorMenu from "./components/modal-predictorMenu/ModalPredictorMenu";
 import { useSetMapData } from "./hooks/useSetMapData";
 import RenderMap from "./components/render-map/RenderMap";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const {
@@ -18,20 +19,22 @@ export default function App() {
   } = useSetMapData();
 
   return (
-    <main className="relative">
-      <RenderMap
-        mapData={mapData}
-        simpleStyle={simpleStyle}
-        onEachState={onEachState}
-      />
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <main className="relative">
+        <RenderMap
+          mapData={mapData}
+          simpleStyle={simpleStyle}
+          onEachState={onEachState}
+        />
 
-      {!openPredictorMenu && (
-        <StatePanel stateName={stateName} stateCode={stateCode} />
-      )}
+        {!openPredictorMenu && (
+          <StatePanel stateName={stateName} stateCode={stateCode} />
+        )}
 
-      <button
-        type="button"
-        className="
+        <button
+          type="button"
+          className="
           absolute z-[999] top-2 right-20 
           flex items-center w-fit p-3
           cursor-pointer
@@ -40,12 +43,13 @@ export default function App() {
           text-sm font-bold tracking-tight text-white 
           hover:border-zinc-700/30 hover:bg-zinc-900/60 
           transition-all duration-100"
-        onClick={() => setOpenPredictorMenu(!openPredictorMenu)}
-      >
-        Make a Prediction
-      </button>
+          onClick={() => setOpenPredictorMenu(!openPredictorMenu)}
+        >
+          Make a Prediction
+        </button>
 
-      <ModalPredictorMenu openMenu={openPredictorMenu} />
-    </main>
+        <ModalPredictorMenu openMenu={openPredictorMenu} />
+      </main>
+    </>
   );
 }

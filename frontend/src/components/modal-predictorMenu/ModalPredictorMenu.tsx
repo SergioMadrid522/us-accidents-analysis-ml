@@ -1,3 +1,4 @@
+import { useMakePrediction } from "../../hooks/useMakePrediction";
 import type { ModalPredictorMenuProps } from "../../types";
 import Header from "./Header";
 import Prediction from "./Prediction";
@@ -6,6 +7,16 @@ import PredictorForm from "./PredictorForm";
 export default function ModalPredictorMenu({
   openMenu,
 }: ModalPredictorMenuProps) {
+  const {
+    register,
+    handleSubmit,
+    control,
+    submit,
+    isSubmitting,
+    isSent,
+    responseData,
+  } = useMakePrediction();
+
   return (
     <aside
       className={`
@@ -20,9 +31,15 @@ export default function ModalPredictorMenu({
       <Header />
 
       <div className="custom-scrollbar flex-1 overflow-y-auto p-6 z-40">
-        <PredictorForm />
+        <PredictorForm
+          register={register}
+          handleSubmit={handleSubmit}
+          control={control}
+          submit={submit}
+          isSubmitting={isSubmitting}
+        />
 
-        <Prediction />
+        {isSent && <Prediction {...responseData} />}
       </div>
     </aside>
   );

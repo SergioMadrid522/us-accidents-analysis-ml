@@ -1,10 +1,21 @@
-export default function MakePrediction() {
+export default function MakePrediction({
+  isSubmitting,
+}: {
+  isSubmitting: boolean;
+}) {
   return (
     <button
-      type="button"
-      className="cursor-pointer w-full rounded-xl bg-emerald-500 py-3.5 text-sm font-bold tracking-wide text-zinc-950 uppercase transition-all hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+      type="submit"
+      disabled={isSubmitting}
+      className={`
+        ${
+          isSubmitting
+            ? "bg-emerald-800 cursor-crosshair"
+            : "bg-emerald-500 cursor-pointer hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+        }
+      "w-full rounded-xl py-3.5 text-sm font-bold tracking-wide text-zinc-950 uppercase transition-all"`}
     >
-      Make Prediction
+      {isSubmitting ? "Processing..." : "Make Prediction"}
     </button>
   );
 }
