@@ -6,3 +6,6 @@ venv
 
 # Model files
 *.pkl
+
+#json files
+data/*

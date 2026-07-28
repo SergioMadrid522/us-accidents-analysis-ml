@@ -1,13 +1,14 @@
 package com.sergio.usaccidentsbff.dtos;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
-
 @Data
+
 public class PredictionResponseDTO {
-    private int status;
-    private int prediction;
+    @JsonProperty("prediction")
+    private int highSeverity;
     @JsonProperty("risk_probabilities_percent")
-    private RiskProbabilitiesPercentDTO riskProbabilitiesPercentDTO;
+    private Map<String, Double> riskProbabilities;
 }
