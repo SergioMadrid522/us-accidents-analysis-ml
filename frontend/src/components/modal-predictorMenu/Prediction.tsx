@@ -1,5 +1,5 @@
 import type { PredictionResult } from "../../types";
-import { findMaxValues } from "../../utils/FindMaxValues";
+import { findMaxValues } from "../../utils/findMaxValues";
 
 export default function Prediction({ ...PredictionResult }: PredictionResult) {
   const { prediction, risk_probabilities_percent } = PredictionResult;
